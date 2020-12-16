@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Formly.Shared
+﻿namespace Formly.Shared.Services
 {
   public interface ITemplateMetaDataRetriever
   {

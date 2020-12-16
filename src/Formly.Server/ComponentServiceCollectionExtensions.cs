@@ -1,5 +1,7 @@
 ﻿using Formly.Server;
+using Formly.Server.Services;
 using Formly.Shared;
+using Formly.Shared.Services;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -9,7 +11,7 @@ namespace Microsoft.Extensions.DependencyInjection
     {
       services.AddSingleton<ITemplateMetaDataRetriever, TemplateMetaDataRetriever>();
 
-      services.AddScoped<ITemplateRepository, TemplateRepository>();
+      services.AddScoped<ITemplateService, TemplateService>();
       services.AddScoped<IWeatherForecastService, WeatherForecastService>();
     }
   }
