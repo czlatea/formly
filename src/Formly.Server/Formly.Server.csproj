@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Formly.Shared\Formly.Shared.csproj" />
+    <ProjectReference Include="..\Framework\Framework.csproj" />
   </ItemGroup>
 
   <ItemGroup>

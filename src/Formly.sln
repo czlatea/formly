@@ -7,9 +7,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Formly.App", "Formly.App\Fo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Formly.Shared", "Formly.Shared\Formly.Shared.csproj", "{7438F8B1-D59D-4F87-88A1-33E4A33BE780}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Formly.DataEntities", "Formly.DataEntities\Formly.DataEntities.csproj", "{74EFE53E-2AF7-4FBB-9962-45A66A938961}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Formly.DataEntities", "Formly.DataEntities\Formly.DataEntities.csproj", "{74EFE53E-2AF7-4FBB-9962-45A66A938961}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Formly.Server", "Formly.Server\Formly.Server.csproj", "{B944561C-9E96-4015-BC5A-CC47BE659185}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Formly.Server", "Formly.Server\Formly.Server.csproj", "{B944561C-9E96-4015-BC5A-CC47BE659185}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework", "Framework\Framework.csproj", "{26AB636A-FAC5-43EA-AD9E-99287C0039EF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{663615F6-85F6-4A87-A824-B4026C79B5C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Formly.Server.Tests", "Formly.Server.Tests\Formly.Server.Tests.csproj", "{6FC48C10-C76B-4551-A686-A61E8F527677}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,9 +39,20 @@ Global
 		{B944561C-9E96-4015-BC5A-CC47BE659185}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B944561C-9E96-4015-BC5A-CC47BE659185}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B944561C-9E96-4015-BC5A-CC47BE659185}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26AB636A-FAC5-43EA-AD9E-99287C0039EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26AB636A-FAC5-43EA-AD9E-99287C0039EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26AB636A-FAC5-43EA-AD9E-99287C0039EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26AB636A-FAC5-43EA-AD9E-99287C0039EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FC48C10-C76B-4551-A686-A61E8F527677}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FC48C10-C76B-4551-A686-A61E8F527677}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FC48C10-C76B-4551-A686-A61E8F527677}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FC48C10-C76B-4551-A686-A61E8F527677}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6FC48C10-C76B-4551-A686-A61E8F527677} = {663615F6-85F6-4A87-A824-B4026C79B5C2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5ED1E3AA-FAA6-4757-9B79-5E1BE03384AE}
