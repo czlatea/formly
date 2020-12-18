@@ -9,7 +9,7 @@ namespace Formly.Server.Services
 {
   public class TemplateMetaDataRetriever : ITemplateMetaDataRetriever
   {
-    private static Regex _regex = new Regex(".*?{{(?<Name>.*?)}}.*?", RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase | RegexOptions.Singleline);
+    private static readonly Regex _regex = new Regex(".*?{{(?<Name>.*?)}}.*?", RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase | RegexOptions.Singleline);
 
     public IList<TemplateMetaDataItem> GetMetaDataItems(string templateContent)
     {
