@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using Formly.Shared;
 using Formly.Shared.Services;
 using Framework;
+using Framework.Extensions;
 using MarkdownDeep;
 
 namespace Formly.Server.Services
@@ -18,7 +19,7 @@ namespace Formly.Server.Services
       
       var matches = mPlaceholderMatchRegex.Matches(templateContent);
 
-      return matches.Select(Convert).Where(x => x != null).ToArray();
+      return matches.Select(Convert).Where(x => x != null).DistinctBy(x=>x.Name).ToArray();
     }
 
     public string Transform(string templateContent, IDictionary<string, string> placeholderValues)

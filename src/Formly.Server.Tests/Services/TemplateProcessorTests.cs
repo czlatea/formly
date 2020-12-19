@@ -32,13 +32,32 @@ namespace Formly.Server.Tests.Services
     }
 
     [Test]
+    public void TestGetMetaDataItems_WhenContainsSamePlaceHolderMultipleTimes()
+    {
+      TemplateProcessor templateProcessor = new TemplateProcessor();
+
+      var items = templateProcessor.GetMetaDataItems("**{{FirstName}}**{{LastName}} {{FirstName}}");
+
+      Assert.AreEqual(2, items.Count);
+      Assert.AreEqual("FirstName", items[0].Name);
+      Assert.AreEqual("LastName", items[1].Name);
+    }
+
+    [Test]
     public void TestTransform_Success()
     {
       TemplateProcessor templateProcessor = new TemplateProcessor();
 
-      string transformedTemplate = templateProcessor.Transform("**{{FirstName}}**", new Dictionary<string, string> { ["FirstName"] = "Mo" });
+      IDictionary<string, string> placeholderValues = new Dictionary<string, string>
+      {
+        ["FirstName"] = "Mo",
+        ["LastName"] = "The Best"
+      };
+      string templateContent = "**{{FirstName}}** {{LastName}} {{FirstName}}";
+      
+      string transformedTemplate = templateProcessor.Transform(templateContent, placeholderValues);
 
-      StringAssert.AreEqualIgnoringCase("<p><strong>Mo</strong></p>\n", transformedTemplate);
+      StringAssert.AreEqualIgnoringCase("<p><strong>Mo</strong> The Best Mo</p>\n", transformedTemplate);
     }
   }
 }

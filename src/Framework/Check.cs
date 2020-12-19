@@ -2,7 +2,7 @@
 
 namespace Framework
 {
-  public  static class Check
+  public static class Check
   {
     public static void NotNullOrEmpty(string value, string parameterName)
     {
