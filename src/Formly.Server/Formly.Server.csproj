@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MarkdownDeep.NET.Core" Version="1.5.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Formly.Shared\Formly.Shared.csproj" />
     <ProjectReference Include="..\Framework\Framework.csproj" />
   </ItemGroup>

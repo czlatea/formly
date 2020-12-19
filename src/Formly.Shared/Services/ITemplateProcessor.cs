@@ -2,8 +2,9 @@
 
 namespace Formly.Shared.Services
 {
-  public interface ITemplateMetaDataRetriever
+  public interface ITemplateProcessor
   {
     IList<TemplateMetaDataItem> GetMetaDataItems(string templateContent);
+    string Transform(string templateContent, IDictionary<string, string> placeholderValues);
   }
 }
