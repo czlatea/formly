@@ -32,7 +32,7 @@ namespace Formly.Server.Services
     {
       string templateContent = GetTemplateContent(templateId);
 
-      return mTemplateProcessor.Transform(templateContent, placeholderValues);
+      return mTemplateProcessor.TransformToText(templateContent, placeholderValues);
     }
   }
 }

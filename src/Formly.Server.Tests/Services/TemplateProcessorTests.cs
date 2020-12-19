@@ -44,7 +44,7 @@ namespace Formly.Server.Tests.Services
     }
 
     [Test]
-    public void TestTransform_Success()
+    public void TestTransformToText_Success()
     {
       TemplateProcessor templateProcessor = new TemplateProcessor();
 
@@ -54,10 +54,27 @@ namespace Formly.Server.Tests.Services
         ["LastName"] = "The Best"
       };
       string templateContent = "**{{FirstName}}** {{LastName}} {{FirstName}}";
-      
-      string transformedTemplate = templateProcessor.Transform(templateContent, placeholderValues);
+
+      string transformedTemplate = templateProcessor.TransformToText(templateContent, placeholderValues);
 
       StringAssert.AreEqualIgnoringCase("<p><strong>Mo</strong> The Best Mo</p>\n", transformedTemplate);
+    }
+
+    [Test]
+    public void TestTransformToPdf_Success()
+    {
+      TemplateProcessor templateProcessor = new TemplateProcessor();
+
+      IDictionary<string, string> placeholderValues = new Dictionary<string, string>
+      {
+        ["FirstName"] = "Mo",
+        ["LastName"] = "The Best"
+      };
+      string templateContent = @"#Contract Sales
+                               **{{FirstName}}** {{LastName}} {{FirstName}}";
+
+      string fileName = templateProcessor.TransformToPdf(templateContent, placeholderValues);
+      Console.Out.WriteLine(fileName);
     }
   }
 }
