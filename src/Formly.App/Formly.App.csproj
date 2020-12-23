@@ -19,8 +19,4 @@
     <ProjectReference Include="..\Formly.Shared\Formly.Shared.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Data\" />
-  </ItemGroup>
-
 </Project>
