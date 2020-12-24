@@ -1,3 +1,5 @@
+using System.Reflection;
+using DbUp;
 using Formly.Server;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -21,10 +23,18 @@ namespace Formly.App
     {
       services.AddRazorPages();
       services.AddServerSideBlazor();
-      services.AddDbContext<FormlyDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+      services.AddDbContext<FormlyDbContext>(options => options.UseSqlServer(GetConnectionString()));
       services.AddMemoryCache();
 
       services.AddFormly();
+
+      EnsureDatabase.For.SqlDatabase(GetConnectionString());
+      DeployChanges.To.SqlDatabase(GetConnectionString()).WithScriptsAndCodeEmbeddedInAssembly(Assembly.GetCallingAssembly()).LogToConsole().Build();
+    }
+
+    private string GetConnectionString()
+    {
+      return Configuration.GetConnectionString("DefaultConnection");
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
