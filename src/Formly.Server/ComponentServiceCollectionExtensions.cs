@@ -1,5 +1,6 @@
 ﻿using Formly.Server.Services;
 using Formly.Shared.Services;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -9,7 +10,8 @@ namespace Microsoft.Extensions.DependencyInjection
     {
       services.AddSingleton<ITemplateProcessor, TemplateProcessor>();
 
-      services.AddScoped<ITemplateService, TemplateService>();
+      services.AddScoped<TemplateService>();
+      services.AddScoped<ITemplateService>(p => new TemplateServiceCachingDecorator(p.GetService<IMemoryCache>(), p.GetService<TemplateService>()));
       services.AddScoped<IWeatherForecastService, WeatherForecastService>();
     }
   }

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Formly.Shared;
 using Formly.Shared.Services;
-using MarkdownDeep;
 
 namespace Formly.Server.Services
 {
