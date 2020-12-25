@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Formly.DataAccess.Migrations\Formly.DataAccess.Migrations.csproj" />
     <ProjectReference Include="..\Formly.Server\Formly.Server.csproj" />
     <ProjectReference Include="..\Formly.Shared\Formly.Shared.csproj" />
   </ItemGroup>

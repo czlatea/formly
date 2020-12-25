@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Formly.DataEntities\Formly.DataEntities.csproj" />
     <ProjectReference Include="..\Formly.Shared\Formly.Shared.csproj" />
     <ProjectReference Include="..\Framework\Framework.csproj" />
   </ItemGroup>

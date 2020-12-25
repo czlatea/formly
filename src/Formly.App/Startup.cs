@@ -1,5 +1,8 @@
 using System.Reflection;
 using DbUp;
+using DbUp.Engine;
+using DbUp.Helpers;
+using Formly.DataAccess.Migrations;
 using Formly.Server;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,13 +31,7 @@ namespace Formly.App
 
       services.AddFormly();
 
-      EnsureDatabase.For.SqlDatabase(GetConnectionString());
-      DeployChanges.To.SqlDatabase(GetConnectionString()).WithScriptsAndCodeEmbeddedInAssembly(Assembly.GetCallingAssembly()).LogToConsole().Build();
-    }
-
-    private string GetConnectionString()
-    {
-      return Configuration.GetConnectionString("DefaultConnection");
+      RunDbUpdate();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -60,6 +57,37 @@ namespace Formly.App
         endpoints.MapBlazorHub();
         endpoints.MapFallbackToPage("/_Host");
       });
+    }
+
+    private void RunDbUpdate()
+    {
+      EnsureDatabase.For.SqlDatabase(GetConnectionString());
+      Assembly dbMigrationAssembly = GetDbMigrationAssembly();
+      UpgradeEngine upgradeEngine = GetUpgradeEngine(dbMigrationAssembly);
+
+      upgradeEngine.PerformUpgrade();
+    }
+
+    private UpgradeEngine GetUpgradeEngine(Assembly dbMigrationAssembly)
+    {
+      var upgradeEngine = DeployChanges.To
+        .SqlDatabase(GetConnectionString())
+        .JournalTo(new NullJournal())
+        .WithScriptsAndCodeEmbeddedInAssembly(dbMigrationAssembly)
+        .LogToConsole()
+        .Build();
+
+      return upgradeEngine;
+    }
+
+    private static Assembly GetDbMigrationAssembly()
+    {
+      return typeof(IDatabaseMigration).Assembly;
+    }
+
+    private string GetConnectionString()
+    {
+      return Configuration.GetConnectionString("DefaultConnection");
     }
   }
 }

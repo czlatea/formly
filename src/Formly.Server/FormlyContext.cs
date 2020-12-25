@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Formly.DataEntities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Formly.Server
 {
@@ -8,5 +9,7 @@ namespace Formly.Server
       : base(options)
     {
     }
+
+    public DbSet<TemplateDataEntity> Templates { get; set; }
   }
 }

@@ -1,0 +1,11 @@
+﻿DROP TABLE dbo.Template;
+
+CREATE TABLE dbo.Template
+(
+  Id BIGINT NOT NULL IDENTITY(1,1),
+  Name NVARCHAR(255) NOT NULL,
+  Description NVARCHAR(255),
+  Content NVARCHAR(MAX) NOT NULL,
+  IsActive BIT NOT NULL,
+  CONSTRAINT PK_Template_ID PRIMARY KEY (Id)
+)
