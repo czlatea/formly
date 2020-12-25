@@ -1,6 +1,4 @@
-﻿DROP TABLE dbo.Template;
-
-CREATE TABLE dbo.Template
+﻿CREATE TABLE dbo.Template
 (
   Id BIGINT NOT NULL IDENTITY(1,1),
   Name NVARCHAR(255) NOT NULL,

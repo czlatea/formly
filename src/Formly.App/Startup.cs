@@ -24,14 +24,16 @@ namespace Formly.App
 
     public void ConfigureServices(IServiceCollection services)
     {
+      string connectionString = GetConnectionString();
+
       services.AddRazorPages();
       services.AddServerSideBlazor();
-      services.AddDbContext<FormlyDbContext>(options => options.UseSqlServer(GetConnectionString()));
+      services.AddDbContext<FormlyDbContext>(options => options.UseSqlServer(connectionString));
       services.AddMemoryCache();
 
       services.AddFormly();
 
-      RunDbUpdate();
+      RunDbUpdate(connectionString);
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -59,9 +61,11 @@ namespace Formly.App
       });
     }
 
-    private void RunDbUpdate()
+    private void RunDbUpdate(string connectionString)
     {
-      EnsureDatabase.For.SqlDatabase(GetConnectionString());
+      DropDatabase.For.SqlDatabase(connectionString);
+      EnsureDatabase.For.SqlDatabase(connectionString);
+
       Assembly dbMigrationAssembly = GetDbMigrationAssembly();
       UpgradeEngine upgradeEngine = GetUpgradeEngine(dbMigrationAssembly);
 
