@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using Formly.Shared.Services;
+using Framework;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Formly.App.Controllers
@@ -7,11 +9,33 @@ namespace Formly.App.Controllers
   [ApiController]
   public class TemplateController : ControllerBase
   {
-    [HttpGet]
-    public IActionResult Get(string fileName)
+    private readonly ITemplateService mTemplateService;
+    private readonly ITemplateProcessor mTemplateProcessor;
+
+    public TemplateController(ITemplateService templateService, ITemplateProcessor templateProcessor)
     {
-      var content=Encoding.UTF8.GetBytes("this is a generated file");
-      return File(content, "application/octet-stream", fileName);
+      Check.Assigned(templateService, nameof(templateService));
+      Check.Assigned(templateProcessor, nameof(templateProcessor));
+
+      mTemplateService = templateService;
+      mTemplateProcessor = templateProcessor;
+    }
+
+    [HttpGet]
+    public IActionResult Get(long id)
+    {
+      string templateContent = mTemplateService.GetTemplateContent(id);
+
+      IDictionary<string, string> placeholderValues = new Dictionary<string, string>()
+      {
+        ["FirstName"]="Bob",
+        ["LastName"]="Emma"
+      };
+      
+      string filePath = mTemplateProcessor.TransformToPdf(templateContent, placeholderValues);
+      var fileContent = System.IO.File.ReadAllBytes(filePath);
+      
+      return File(fileContent, "application/octet-stream", System.IO.Path.GetFileName(filePath));
     }
   }
 }
