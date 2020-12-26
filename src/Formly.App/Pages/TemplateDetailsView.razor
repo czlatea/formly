@@ -1,0 +1,14 @@
+﻿<h3>Template:@TemplateDetails.Name</h3>
+
+<div class="row">
+  <ul>
+    @foreach (var metadata in MetaData)
+    {
+      <li>@metadata.Name</li>
+    }
+  </ul>
+</div>
+
+<div class="row">
+  <a class="btn btn-primary" role="button" href="/api/Template?id=1" target="_blank">Download</a>
+</div>

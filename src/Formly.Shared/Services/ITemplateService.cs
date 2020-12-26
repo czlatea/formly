@@ -7,5 +7,6 @@ namespace Formly.Shared.Services
     string GetTemplateContent(long templateId);
     IList<TemplateMetaDataItem> GetTemplateMetaData(long templateId);
     string Transform(long templateId, IDictionary<string, string> placeholderValues);
+    TemplateDetails GetTemplateDetails(long templateId);
   }
 }

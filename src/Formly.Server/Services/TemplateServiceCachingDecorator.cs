@@ -27,5 +27,10 @@ namespace Formly.Server.Services
     {
       return Inner.Transform(templateId, placeholderValues);
     }
+
+    public TemplateDetails GetTemplateDetails(long templateId)
+    {
+      return GetOrCreate($"TemplateDetails_{templateId}", () => Inner.GetTemplateDetails(templateId));
+    }
   }
 }
