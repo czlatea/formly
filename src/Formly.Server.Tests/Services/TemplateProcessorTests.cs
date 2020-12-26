@@ -75,6 +75,8 @@ namespace Formly.Server.Tests.Services
 
       string fileName = templateProcessor.TransformToPdf(templateContent, placeholderValues);
       Console.Out.WriteLine(fileName);
+      
+      Assert.IsNotNull(fileName);
     }
   }
 }
