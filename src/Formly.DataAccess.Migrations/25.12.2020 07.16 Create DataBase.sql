@@ -8,4 +8,4 @@
   CONSTRAINT PK_Template_ID PRIMARY KEY (Id)
 )
 
-INSERT INTO dbo.Template(Name,Description,IsActive,Content) VALUES('Contract Comodant','Contract Comodant',1,'"Please fill in the required fields: **First Name**:{FirstName} **Last Name**:{LastName}');
+INSERT INTO dbo.Template(Name,Description,IsActive,Content) VALUES('Contract Comodant','Contract Comodant',1,'Please fill in the required fields: **First Name**:{{FirstName}} **Last Name**:{{LastName}}');

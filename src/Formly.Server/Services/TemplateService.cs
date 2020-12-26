@@ -24,7 +24,7 @@ namespace Formly.Server.Services
 
     public string GetTemplateContent(long templateId)
     {
-      return "Please fill in the required fields:" + Environment.NewLine + "**First Name**:{{FirstName}}" + Environment.NewLine + "**Last Name**:{{LastName}}";
+      return mContext.Templates.SingleOrDefault(x => x.Id == templateId && x.IsActive).Content;
     }
 
     public IList<TemplateMetaDataItem> GetTemplateMetaData(long templateId)
