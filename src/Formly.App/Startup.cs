@@ -1,7 +1,6 @@
 using System.Reflection;
 using DbUp;
 using DbUp.Engine;
-using DbUp.Helpers;
 using Formly.DataAccess.Migrations;
 using Formly.Server;
 using Microsoft.AspNetCore.Builder;
@@ -15,22 +14,25 @@ namespace Formly.App
 {
   public class Startup
   {
+    private readonly IConfiguration mConfiguration;
+
     public Startup(IConfiguration configuration)
     {
-      Configuration = configuration;
+      mConfiguration = configuration;
     }
-
-    public IConfiguration Configuration { get; }
 
     public void ConfigureServices(IServiceCollection services)
     {
       string connectionString = GetConnectionString();
 
+
+      services.AddControllers();
+    
       services.AddRazorPages();
       services.AddServerSideBlazor();
       services.AddDbContext<FormlyDbContext>(options => options.UseSqlServer(connectionString));
       services.AddMemoryCache();
-
+      
       services.AddFormly();
 
       RunDbUpdate(connectionString);
@@ -54,8 +56,11 @@ namespace Formly.App
 
       app.UseRouting();
 
+      app.UseAuthorization();
+
       app.UseEndpoints(endpoints =>
       {
+        endpoints.MapControllers();
         endpoints.MapBlazorHub();
         endpoints.MapFallbackToPage("/_Host");
       });
@@ -76,7 +81,6 @@ namespace Formly.App
     {
       var upgradeEngine = DeployChanges.To
         .SqlDatabase(GetConnectionString())
-        .JournalTo(new NullJournal())
         .WithScriptsAndCodeEmbeddedInAssembly(dbMigrationAssembly)
         .LogToConsole()
         .Build();
@@ -91,7 +95,7 @@ namespace Formly.App
 
     private string GetConnectionString()
     {
-      return Configuration.GetConnectionString("DefaultConnection");
+      return mConfiguration.GetConnectionString("DefaultConnection");
     }
   }
 }
