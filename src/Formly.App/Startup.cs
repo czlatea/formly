@@ -1,3 +1,4 @@
+using System;
 using System.Reflection;
 using DbUp;
 using DbUp.Engine;
@@ -36,7 +37,7 @@ namespace Formly.App
       services.AddServerSideBlazor();
       services.AddDbContext<FormlyDbContext>(options => options.UseSqlServer(connectionString));
       services.AddMemoryCache();
-      
+
       services.AddFormly();
 
       RunDbUpdate(connectionString);
@@ -80,7 +81,11 @@ namespace Formly.App
       Assembly dbMigrationAssembly = GetDbMigrationAssembly();
       UpgradeEngine upgradeEngine = GetUpgradeEngine(dbMigrationAssembly);
 
-      upgradeEngine.PerformUpgrade();
+      var result = upgradeEngine.PerformUpgrade();
+      if (!result.Successful)
+      {
+        throw new Exception(result.ErrorScript.Contents, result.Error);
+      }
     }
 
     private UpgradeEngine GetUpgradeEngine(Assembly dbMigrationAssembly)
