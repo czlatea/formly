@@ -61,6 +61,40 @@ namespace Formly.Server.Tests.Services
     }
 
     [Test]
+    public void TestTransformToText_WhenNotAllPlaceholdersAreFilled()
+    {
+      TemplateProcessor templateProcessor = new TemplateProcessor();
+
+      IDictionary<string, string> placeholderValues = new Dictionary<string, string>
+      {
+        ["FirstName"] = "Mo",
+        ["LastName"] = "The Best"
+      };
+      string templateContent = "**{{FirstName}}** {{LastName}} {{FirstName}}. Age:**{{Age}}**";
+
+      string transformedTemplate = templateProcessor.TransformToText(templateContent, placeholderValues);
+
+      StringAssert.AreEqualIgnoringCase("<p><strong>Mo</strong> The Best Mo. Age:<strong>...</strong></p>\n", transformedTemplate);
+    }
+
+    [Test]
+    public void TestTransformToText_WhenPlaceHolderValueIsNullOrEmpty()
+    {
+      TemplateProcessor templateProcessor = new TemplateProcessor();
+
+      IDictionary<string, string> placeholderValues = new Dictionary<string, string>
+      {
+        ["FirstName"] = null,
+        ["Age"] = null
+      };
+      string templateContent = "**{{FirstName}}** {{LastName}} {{FirstName}}. Age:**{{Age}}**";
+
+      string transformedTemplate = templateProcessor.TransformToText(templateContent, placeholderValues);
+
+      StringAssert.AreEqualIgnoringCase("<p><strong>...</strong> ... .... Age:<strong>...</strong></p>\n", transformedTemplate);
+    }
+
+    [Test]
     public void TestTransformToPdf_Success()
     {
       TemplateProcessor templateProcessor = new TemplateProcessor();
@@ -75,7 +109,7 @@ namespace Formly.Server.Tests.Services
 
       string fileName = templateProcessor.TransformToPdf(templateContent, placeholderValues);
       Console.Out.WriteLine(fileName);
-      
+
       Assert.IsNotNull(fileName);
     }
   }
