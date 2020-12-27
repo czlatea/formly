@@ -12,7 +12,6 @@ namespace Microsoft.Extensions.DependencyInjection
 
       services.AddScoped<TemplateService>();
       services.AddScoped<ITemplateService>(p => new TemplateServiceCachingDecorator(p.GetService<IMemoryCache>(), p.GetService<TemplateService>()));
-      services.AddScoped<IWeatherForecastService, WeatherForecastService>();
     }
   }
 }

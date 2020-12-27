@@ -21,21 +21,33 @@ namespace Formly.Server.Services
       mTemplateProcessor = templateProcessor;
     }
 
-    public string GetTemplateContent(long templateId)
+    public string GetTemplateContent(long id)
     {
-      return mContext.Templates.SingleOrDefault(x => x.Id == templateId && x.IsActive).Content;
+      return ActiveTemplates.Where(x => x.Id == id).Select(x => x.Content).SingleOrDefault();
     }
 
-    public IList<TemplateMetaDataItem> GetTemplateMetaData(long templateId)
+    public string GetTemplateContentByExternalId(string externalId)
     {
-      string templateContent = GetTemplateContent(templateId);
+      return ActiveTemplates.Where(x => x.ExternalId == externalId).Select(x => x.Content).SingleOrDefault();
+    }
+
+    public IList<TemplateMetaDataItem> GetTemplateMetaData(long id)
+    {
+      string templateContent = GetTemplateContent(id);
 
       return mTemplateProcessor.GetMetaDataItems(templateContent);
     }
 
-    public string Transform(long templateId, IDictionary<string, string> placeholderValues)
+    public IList<TemplateMetaDataItem> GetTemplateMetaDataByExternalId(string externalId)
     {
-      string templateContent = GetTemplateContent(templateId);
+      string templateContent = GetTemplateContentByExternalId(externalId);
+
+      return mTemplateProcessor.GetMetaDataItems(templateContent);
+    }
+
+    public string Transform(long id, IDictionary<string, string> placeholderValues)
+    {
+      string templateContent = GetTemplateContent(id);
 
       return mTemplateProcessor.TransformToText(templateContent, placeholderValues);
     }
@@ -47,6 +59,16 @@ namespace Formly.Server.Services
       return query.SingleOrDefault();
     }
 
+    public TemplateDetails GetTemplateDetailsByExternalId(string externalId)
+    {
+      return ActiveTemplates.Where(x => x.ExternalId == externalId).Select(x => MapTemplateToTemplateDetails(x)).SingleOrDefault();
+    }
+
+    public IList<TemplateDetails> GetAllTemplates()
+    {
+      return mContext.Templates.Where(x => x.IsActive).Select(x => MapTemplateToTemplateDetails(x)).ToList();
+    }
+
     private static TemplateDetails MapTemplateToTemplateDetails(TemplateDataEntity templateDataEntity)
     {
       return new TemplateDetails
@@ -54,8 +76,11 @@ namespace Formly.Server.Services
         Name = templateDataEntity.Name,
         Description = templateDataEntity.Description,
         Id = templateDataEntity.Id,
+        ExternalId = templateDataEntity.ExternalId,
         Tags = new List<string>()
       };
     }
+
+    private IQueryable<TemplateDataEntity> ActiveTemplates => mContext.Templates.Where(x => x.IsActive);
   }
 }

@@ -10,4 +10,4 @@
 )
 
 INSERT INTO dbo.Template(ExternalId,Name,Description,IsActive,Content) 
-VALUES('51db571a-d871-4779-8f1b-fed3a3fdfaf0','Contract Comodant','Contract Comodant',1,'Please fill in the required fields: **First Name**:{{FirstName}} **Last Name**:{{LastName}}');
+VALUES('51db571a-d871-4779-8f1b-fed3a3fdfaf0','Contract Comodant','Contract Comodant',1,'Please fill in the required fields: First Name:**{{FirstName}}** Last Name:**{{LastName}}**');

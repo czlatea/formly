@@ -13,24 +13,44 @@ namespace Formly.Server.Services
     {
     }
 
-    public string GetTemplateContent(long templateId)
+    public string GetTemplateContent(long id)
     {
-      return GetOrCreate($"Template_{templateId}", () => Inner.GetTemplateContent(templateId));
+      return GetOrCreate($"{nameof(GetTemplateContent)}_{id}", () => Inner.GetTemplateContent(id));
     }
 
-    public IList<TemplateMetaDataItem> GetTemplateMetaData(long templateId)
+    public IList<TemplateMetaDataItem> GetTemplateMetaData(long id)
     {
-      return GetOrCreate($"TemplateMetaData_{templateId}", () => Inner.GetTemplateMetaData(templateId));
+      return GetOrCreate($"{nameof(GetTemplateMetaData)}_{id}", () => Inner.GetTemplateMetaData(id));
     }
 
-    public string Transform(long templateId, IDictionary<string, string> placeholderValues)
+    public IList<TemplateMetaDataItem> GetTemplateMetaDataByExternalId(string externalId)
     {
-      return Inner.Transform(templateId, placeholderValues);
+      return GetOrCreate($"{nameof(GetTemplateMetaDataByExternalId)}_{externalId}", () => Inner.GetTemplateMetaDataByExternalId(externalId));
     }
 
-    public TemplateDetails GetTemplateDetails(long templateId)
+    public string Transform(long id, IDictionary<string, string> placeholderValues)
     {
-      return GetOrCreate($"TemplateDetails_{templateId}", () => Inner.GetTemplateDetails(templateId));
+      return Inner.Transform(id, placeholderValues);
+    }
+
+    public TemplateDetails GetTemplateDetails(long id)
+    {
+      return GetOrCreate($"{nameof(GetTemplateDetails)}_{id}", () => Inner.GetTemplateDetails(id));
+    }
+
+    public TemplateDetails GetTemplateDetailsByExternalId(string externalId)
+    {
+      return GetOrCreate($"{nameof(GetTemplateDetailsByExternalId)}_{externalId}", () => Inner.GetTemplateDetailsByExternalId(externalId));
+    }
+
+    public IList<TemplateDetails> GetAllTemplates()
+    {
+      return GetOrCreate($"{nameof(GetAllTemplates)}", () => Inner.GetAllTemplates());
+    }
+
+    public string GetTemplateContentByExternalId(string externalId)
+    {
+      return GetOrCreate($"{nameof(GetTemplateContentByExternalId)}_{externalId}", () => Inner.GetTemplateContentByExternalId(externalId));
     }
   }
 }

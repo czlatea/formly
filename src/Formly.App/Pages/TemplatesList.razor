@@ -1,0 +1,11 @@
+﻿@page "/templates"
+<h3>TemplatesList</h3>
+
+<ul>
+  @foreach (var template in Templates)
+  {
+    <li>
+      <a href="/template/@template.ExternalId">@template.Name</a> 
+    </li>
+  }
+</ul>

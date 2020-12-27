@@ -13,14 +13,14 @@ namespace Formly.App.Pages
     public ITemplateService TemplateService { get; private set; }
 
     [Parameter]
-    public long TemplateId { get; set; }
+    public string Id { get; set; }
 
     public string DownloadUrl => $"/api/Template{GetDownloadParameters()}";
 
     protected override void OnInitialized()
     {
-      MetaData = TemplateService.GetTemplateMetaData(TemplateId);
-      TemplateDetails = TemplateService.GetTemplateDetails(TemplateId);
+      MetaData = TemplateService.GetTemplateMetaDataByExternalId(Id);
+      TemplateDetails = TemplateService.GetTemplateDetailsByExternalId(Id);
     }
 
     public IList<TemplateMetaDataItem> MetaData { get; private set; }
