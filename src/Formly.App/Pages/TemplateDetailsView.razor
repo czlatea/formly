@@ -1,14 +1,25 @@
 ﻿<h3>Template:@TemplateDetails.Name</h3>
 
 <div class="row">
-  <ul>
+  <form>
     @foreach (var metadata in MetaData)
     {
-      <li>@metadata.Name</li>
+      <div class="row">
+        <div class="row g-3 align-items-center">
+          <div class="col-auto">
+            <label for="inputPassword6" class="col-form-label">@metadata.Name</label>
+          </div>
+          <div class="col-auto">
+            <input type="text" id="inputPassword6" @bind="metadata.Value" class="form-control" aria-describedby="passwordHelpInline">
+          </div>
+          <div class="col-auto">
+            <span id="passwordHelpInline" class="form-text">
+              Must be 8-20 characters long. @metadata.Value
+            </span>
+          </div>
+        </div>
+      </div>
     }
-  </ul>
-</div>
-
-<div class="row">
-  <a class="btn btn-primary" role="button" href="/api/Template?id=1" target="_blank">Download</a>
+    <a class="btn btn-primary" role="button" href="@DownloadUrl" target="_blank">Download</a>
+  </form>
 </div>

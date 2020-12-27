@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Formly.Shared.Services;
 using Framework;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Primitives;
 
 namespace Formly.App.Controllers
 {
@@ -24,17 +26,12 @@ namespace Formly.App.Controllers
     [HttpGet]
     public IActionResult Get(long id)
     {
+      IDictionary<string, string> placeholderValues = HttpContext.Request.Query.ToDictionary(kv => kv.Key, kv => kv.Value.ToString());
       string templateContent = mTemplateService.GetTemplateContent(id);
 
-      IDictionary<string, string> placeholderValues = new Dictionary<string, string>()
-      {
-        ["FirstName"]="Bob",
-        ["LastName"]="Emma"
-      };
-      
       string filePath = mTemplateProcessor.TransformToPdf(templateContent, placeholderValues);
       var fileContent = System.IO.File.ReadAllBytes(filePath);
-      
+
       return File(fileContent, "application/octet-stream", System.IO.Path.GetFileName(filePath));
     }
   }
