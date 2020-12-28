@@ -3,11 +3,10 @@ using System.Linq;
 using Formly.Shared.Services;
 using Framework;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Primitives;
 
 namespace Formly.App.Controllers
 {
-  [Route("api/[controller]")]
+  [Route("api/[controller]/[action]")]
   [ApiController]
   public class TemplateController : ControllerBase
   {
@@ -24,7 +23,7 @@ namespace Formly.App.Controllers
     }
 
     [HttpGet]
-    public IActionResult Get(long id)
+    public IActionResult Display(long id)
     {
       IDictionary<string, string> placeholderValues = HttpContext.Request.Query.ToDictionary(kv => kv.Key, kv => kv.Value.ToString());
       string templateContent = mTemplateService.GetTemplateContent(id);
@@ -32,7 +31,19 @@ namespace Formly.App.Controllers
       string filePath = mTemplateProcessor.TransformToPdf(templateContent, placeholderValues);
       var fileContent = System.IO.File.ReadAllBytes(filePath);
 
-      return File(fileContent, "application/octet-stream", System.IO.Path.GetFileName(filePath));
+      return File(fileContent, "application/pdf");
+    }
+
+    [HttpGet]
+    public IActionResult Download(long id)
+    {
+      IDictionary<string, string> placeholderValues = HttpContext.Request.Query.ToDictionary(kv => kv.Key, kv => kv.Value.ToString());
+      string templateContent = mTemplateService.GetTemplateContent(id);
+
+      string filePath = mTemplateProcessor.TransformToPdf(templateContent, placeholderValues);
+      var fileContent = System.IO.File.ReadAllBytes(filePath);
+
+      return File(fileContent, "application/pdf", System.IO.Path.GetFileName(filePath));
     }
   }
 }

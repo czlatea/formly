@@ -15,7 +15,9 @@ namespace Formly.App.Pages
     [Parameter]
     public string Id { get; set; }
 
-    public string DownloadUrl => $"/api/Template{GetDownloadParameters()}";
+    public string DownloadUrl => $"/api/Template/Download/{GetDownloadParameters()}";
+
+    public string PrintUrl => $"/api/Template/Display/{GetDownloadParameters()}";
 
     protected override void OnInitialized()
     {
