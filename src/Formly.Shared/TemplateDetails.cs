@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Formly.Shared
 {
@@ -10,5 +11,8 @@ namespace Formly.Shared
     public string Description { get; set; }
 
     public IList<string> Tags { get; set; }
+
+    public DateTime CreatedOn { get; set; }
+    public DateTime? LastUpdatedOn { get; set; }
   }
 }

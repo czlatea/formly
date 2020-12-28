@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Formly.DataEntities
 {
@@ -11,5 +12,7 @@ namespace Formly.DataEntities
     public string Description { get; set; }
     public string Content { get; set; }
     public bool IsActive { get; set; }
+    public DateTime CreatedOn { get; set; }
+    public DateTime? LastUpdatedOn { get; set; }
   }
 }

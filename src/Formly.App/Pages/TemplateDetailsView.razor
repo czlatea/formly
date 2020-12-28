@@ -1,6 +1,8 @@
 ﻿@page "/template/{id}"
 
 <h3>Template:@TemplateDetails.Name</h3>
+<h5>Created On: @TemplateDetails.CreatedOn</h5>
+<h5>Last Updated On: @TemplateDetails.LastUpdatedOn</h5>
 
 <div class="row">
   <form>
@@ -23,5 +25,6 @@
       </div>
     }
     <a class="btn btn-primary" role="button" href="@DownloadUrl" target="_blank">Download</a>
+    <a class="btn btn-primary" role="button" href="#" onclick="printFile('@DownloadUrl');" target="_blank">Print</a>
   </form>
 </div>

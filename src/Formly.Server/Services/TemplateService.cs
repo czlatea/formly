@@ -77,6 +77,8 @@ namespace Formly.Server.Services
         Description = templateDataEntity.Description,
         Id = templateDataEntity.Id,
         ExternalId = templateDataEntity.ExternalId,
+        CreatedOn = templateDataEntity.CreatedOn,
+        LastUpdatedOn = templateDataEntity.LastUpdatedOn,
         Tags = new List<string>()
       };
     }
