@@ -6,17 +6,19 @@
   this.contentWindow.print();
 }
 
-function printFile(sURL) {
-  var oHiddFrame = document.createElement("iframe");
-  oHiddFrame.onload = setPrint;
-  oHiddFrame.style.position = "fixed";
-  oHiddFrame.style.right = "0";
-  oHiddFrame.style.bottom = "0";
-  oHiddFrame.style.width = "0";
-  oHiddFrame.style.height = "0";
-  oHiddFrame.style.border = "0";
-  oHiddFrame.src = sURL;
-  document.body.appendChild(oHiddFrame);
+function printFile(url) {
+  var iframe = document.createElement("iframe");
+
+  iframe.onload = setPrint;
+  iframe.style.position = "fixed";
+  iframe.style.right = "0";
+  iframe.style.bottom = "0";
+  iframe.style.width = "0";
+  iframe.style.height = "0";
+  iframe.style.border = "0";
+  iframe.src = url;
+
+  document.body.appendChild(iframe);
 }
 
 function closePrint() {
